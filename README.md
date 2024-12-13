@@ -1,7 +1,30 @@
 # Energy Management System
 
 ## Overview
-This project leverages **Docker** to create a consistent and portable development environment, featuring eleven services:
+This project is a distributed energy management system designed to monitor and manage energy consumption across various devices, featuring a microservices architecture deployed using Docker. The system includes the following key features:
+
+### Microservices Architecture:
+
+* User Management: Handles user authentication and administration.
+* Device Management: Manages device registration and monitoring.
+* Energy Monitoring: Tracks energy consumption in real-time, with notifications for anomalies.
+* Chat Service: Enables communication between clients and administrators.
+
+### Technology Stack:
+* Backend (Spring): Built with a microservices architecture, ensuring scalability and modularity.
+* Frontend (Angular): User interface for client and admin roles, including authentication, device management and chat functionalities.
+* Load Balancing: Implemented via Traefik for enhanced performance and reliability.
+* Messaging Queue: Leverages RabbitMQ for efficient communication between microservices.
+* Real-Time Updates: WebSockets for live notifications and chat functionality.
+
+### System Features:
+* Sends alerts when device energy consumption exceeds predefined thresholds.
+* Supports role-based operations for administrators and clients.
+* Ensures secure data transmission with JWT-based authentication.
+* Logs energy usage and synchronizes data across microservices through dedicated APIs.
+
+## Docker  
+This project leverages **Docker** to create a consistent and portable development environment, including database persistence with Docker volumes, featuring eleven services:
 
 * Angular Frontend application
 * Two Spring Boot User microservices

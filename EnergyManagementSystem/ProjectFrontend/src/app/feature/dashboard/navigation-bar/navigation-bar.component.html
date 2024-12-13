@@ -1,0 +1,23 @@
+<nav>
+  <div>
+    <ul>
+      @if (loggedUser.role == "CLIENT") {
+        <li>
+          <button class="btn btn-lg" (click)="goToDevices()">DEVICES</button>
+        </li>
+      } @else {
+        <li>
+          <button class="btn btn-lg" id="employees-button" (click)="goToClients()">CLIENTS</button>
+        </li>
+      }
+      <li>
+        <button class="btn btn-lg" (click)="goToChat()">CHAT</button>
+      </li>
+      <li>
+        <button class="btn btn-lg" id="logout-button" (click)="logOut()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>

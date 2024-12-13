@@ -1,0 +1,25 @@
+.card {
+  border: none;
+  width: 100%;
+  height: 800px;
+  background-image: url('/src/assets/images/energy.png');
+  background-size: cover;
+  background-position: center 50%;
+  background-repeat: no-repeat;
+}
+
+.form-control-lg, .form-select-lg, .text-left {
+  font-size: 30px;
+  font-family: "Open Sans", serif;
+  margin-top: 20px;
+}
+
+.btn {
+  margin-top: 60px;
+  font-size: 30px;
+}
+
+.alert {
+  margin-top: 10px;
+  font-size: 25px;
+}

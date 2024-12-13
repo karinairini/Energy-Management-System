@@ -1,0 +1,30 @@
+.alert {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  margin: 0;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.alert p {
+  margin-top: 0;
+  font-size: 30px;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.close-button {
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  cursor: pointer;
+}

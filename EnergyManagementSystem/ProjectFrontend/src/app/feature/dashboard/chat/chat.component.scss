@@ -1,0 +1,208 @@
+.card {
+  border: none;
+  width: 130%;
+  height: 1200px;
+  background-size: cover;
+  background-position: center 50%;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  background-color: #babfff;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "Open Sans", serif;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.user-list-card {
+  width: 30%;  // Adjust the width to be smaller for the user list
+  height: 100%;
+  margin-right: 20px;
+  background-color: #ffffff;
+  font-size: 27px;
+  font-family: "Open Sans", serif;
+
+  display: flex;  // Enables flexbox layout
+  justify-content: center;  // Centers the user list horizontally
+  align-items: center;  // Centers the user list vertically
+}
+
+.user-list-header {
+  background-color: #6bb30d;  // Change header color as requested
+  color: white;
+  padding: 10px;
+  width: 100%;  // Ensures the header occupies the full width of the user list card
+  text-align: center;  // Centers the header text
+}
+
+.user-list {
+  padding: 10px;
+  height: calc(100% - 50px);  // Takes up the remaining space after header
+  overflow-y: auto;
+  font-size: 27px;  // Font size for the user list
+  width: 100%;  // Ensures the list takes up the remaining space of the user list card
+}
+
+.list-group-item {
+  cursor: pointer;
+  &.active {
+    background-color: #babfff;
+    color: white;
+    width: 100%;
+    font-weight: bold;
+  }
+}
+
+.chat-section {
+  width: 75%;  // Takes up 75% of the width
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+textarea {
+  flex: 1;
+  height: 65px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 28px;
+  margin-right: 10px;
+  resize: none;
+  outline: none;
+  font-family: "Open Sans", serif;
+}
+
+button {
+  height: 70px;
+  padding: 0 24px;
+  font-size: 27px;
+  color: #fff;
+  background: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  i {
+    font-size: 37px;
+  }
+}
+
+.chat-display {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 5px;
+  font-size: 28px;
+  font-family: "Open Sans", serif;
+  max-height: calc(100% - 80px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.chat-message-wrapper {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  position: relative;
+
+  &.sent {
+    justify-content: flex-end;
+  }
+
+  &.received {
+    justify-content: flex-start;
+  }
+}
+
+.chat-bubble {
+  background-color: #6ebe07;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin: 12px 7px;
+  max-width: 60%;
+  font-size: 28px;
+  word-wrap: break-word;
+  font-family: "Open Sans", serif;
+
+  &.sent {
+    background-color: #6bb30d;
+  }
+
+  &.received {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+}
+
+.status-container {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: -18px;
+  right: 0;
+  font-size: 12px;
+  color: #888;
+
+  .read-status {
+    font-size: 22px;
+    color: #888;
+    margin-right: 5px;
+    font-style: italic;
+    margin-left: 5px;
+  }
+}
+
+.typing-indicator {
+  background-color: #e0e0e0;
+  color: #555;
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 50%;
+  font-size: 20px;
+  font-style: italic;
+  animation: typing-bounce 1.2s infinite;
+}
+
+@keyframes typing-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.d-flex.align-items-center {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 10px 0;
+  gap: 10px;
+}

@@ -1,0 +1,21 @@
+<app-navigation-bar></app-navigation-bar>
+
+@if (devices.length > 0) {
+  <div class="p-2 d-flex flex-column justify-content-center">
+    <div *ngFor="let device of devices">
+      <app-device-card
+        [device]="device"
+        (deleteDeviceEvent)="null"
+        [isAdmin]="false">
+      </app-device-card>
+    </div>
+  </div>
+} @else {
+  <div class="d-flex justify-content-center">
+    <h3>No devices registered yet</h3>
+  </div>
+}
+
+@if (alertMessage) {
+  <app-alert [message]="alertMessage"></app-alert>
+}

@@ -1,0 +1,66 @@
+<app-navigation-bar></app-navigation-bar>
+
+<div class="container mt-1 d-flex justify-content-center align-items-start">
+  <div *ngIf="loggedUser.role === 'ADMIN'" class="card shadow p-4 rounded user-list-card">
+    <div class="card-header user-list-header rounded">
+      <h3 class="card-title">Users</h3>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li
+          *ngFor="let user of users"
+          class="list-group-item"
+          [class.active]="user.id === selectedUser?.id"
+          (click)="selectUser(user)">
+          {{ user.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card shadow p-4 rounded chat-card">
+    <div class="card-header rounded">
+      <h3 class="card-title">
+        {{ loggedUser.role === 'ADMIN' ? selectedUser?.name : 'ADMINISTRATOR' }}
+      </h3>
+    </div>
+    <div class="card-body d-flex">
+      <div class="chat-section flex-grow-1">
+        <div class="chat-display flex-grow-1 mb-1" #chatDisplay (scroll)="onScroll()">
+          <div
+            *ngFor="let chatMessage of messages; let i = index"
+            class="chat-message-wrapper"
+            [ngClass]="{'sent': chatMessage.sent, 'received': !chatMessage.sent}"
+            @chatBubbleAnimation>
+            <div class="chat-bubble" [ngClass]="{'sent': chatMessage.sent, 'received': !chatMessage.sent}">
+              {{ chatMessage.text }}
+            </div>
+            <div *ngIf="i === messages.length - 1 && chatMessage.sent" class="status-container">
+              <span *ngIf="!chatMessage.read" class="read-status">Sent</span>
+              <span *ngIf="chatMessage.read" class="read-status">Read</span>
+            </div>
+          </div>
+          <div *ngIf="isStatusTyping" class="chat-message-wrapper received">
+            <div class="chat-bubble typing-indicator">
+              User is typing...
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <textarea
+            [(ngModel)]="message"
+            placeholder="Type a message..."
+            (input)="onTyping()"
+            (keydown.enter)="sendMessage(this.selectedUser!.id, 'text')"
+            (ngModelChange)="onClearMessage()"
+            (focus)="onFocus()">
+          </textarea>
+          <button
+            (click)="sendMessage(this.selectedUser!.id, 'text')">
+            <i class="fa-regular fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

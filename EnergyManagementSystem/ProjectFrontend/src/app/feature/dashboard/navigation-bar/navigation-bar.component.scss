@@ -1,0 +1,36 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+nav {
+  mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #efd840 25%, #ec7373 75%, rgba(255, 255, 255, 0) 100%);
+  padding: 20px 30px;
+}
+
+nav ul {
+  text-align: center;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(52, 121, 40) 25%, rgb(110, 194, 7) 75%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0 0 25px rgba(186, 191, 255), inset 0 0 1px rgba(0, 0, 0, 0.6);
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li button {
+  padding: 18px;
+  font-family: "Open Sans", serif;
+  color: rgb(0, 0, 0);
+  font-size: 33px;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+}
+
+nav ul li button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+  background: rgb(186, 191, 255);
+  color: rgb(0, 0, 0);
+}
+
+i {
+  font-size: 30px;
+}

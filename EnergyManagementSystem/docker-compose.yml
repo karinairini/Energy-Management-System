@@ -1,0 +1,164 @@
+services:
+  reverse-proxy:
+    image: traefik:v3.2
+    command:
+        - --api.insecure=true
+        - --providers.docker
+        - --accesslog=true
+        - --accesslog.filepath=/var/log/traefik/access.log
+        - --log.level=DEBUG
+        - --entrypoints.web.address=:80
+    ports:
+        - "80:80"
+        - "8080:8080"
+    labels:
+      - "traefik.http.middlewares.websocket-headers.headers.customRequestHeaders.Connection=Upgrade"
+      - "traefik.http.middlewares.websocket-headers.headers.customRequestHeaders.Upgrade=websocket"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - traefik_logs:/var/log/traefik
+    networks:
+      - app_net
+
+  db-user:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: 'user-db'
+      POSTGRES_USER: 'root'
+      POSTGRES_PASSWORD: 'root'
+    ports:
+      - "5435:5432"
+    volumes:
+      - my-user-db:/var/lib/postgresql/data
+    networks:
+      app_net:
+  spring-user:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-user
+    deploy:
+      replicas: 2
+    environment:
+      - DB_IP=db-user
+      - DB_PORT=5432
+      - DB_DBNAME=user-db
+      - DB_USER=root
+      - DB_PASSWORD=root
+    networks:
+      - app_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.spring-user.rule=Host(`localhost`) && PathPrefix(`/api/energy-management-user`)"
+      - "traefik.http.services.spring-user.loadbalancer.server.port=8080"
+
+  db-device:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: 'device-db'
+      POSTGRES_USER: 'root'
+      POSTGRES_PASSWORD: 'root'
+    ports:
+      - "5436:5432"
+    volumes:
+      - my-device-db:/var/lib/postgresql/data
+    networks:
+      app_net:
+  spring-device:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-device
+    deploy:
+      replicas: 1
+    environment:
+      - DB_IP=db-device
+      - DB_PORT=5432
+      - DB_DBNAME=device-db
+      - DB_USER=root
+      - DB_PASSWORD=root
+    networks:
+      - app_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.spring-device.rule=PathPrefix(`/api/energy-management-device`)"
+      - "traefik.http.services.spring-device.loadbalancer.server.port=8080"
+
+  db-monitor:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: 'monitor-db'
+      POSTGRES_USER: 'root'
+      POSTGRES_PASSWORD: 'root'
+    ports:
+      - "5438:5432"
+    volumes:
+      - my-monitor-db:/var/lib/postgresql/data
+    networks:
+      app_net:
+  spring-monitor:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-monitor
+    deploy:
+      replicas: 1
+    environment:
+      - DB_IP=db-monitor
+      - DB_PORT=5432
+      - DB_DBNAME=monitor-db
+      - DB_USER=root
+      - DB_PASSWORD=root
+    networks:
+      - app_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.spring-monitor.rule=Host(`localhost`) && PathPrefix(`/api/energy-management-monitor`)"
+      - "traefik.http.services.spring-monitor.loadbalancer.server.port=8080"
+      - "traefik.http.routers.spring-monitor.middlewares=websocket-headers"
+
+  spring-chat:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-chat
+    deploy:
+      replicas: 1
+    networks:
+      - app_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.spring-chat.rule=Host(`localhost`) && PathPrefix(`/api/energy-management-chat`)"
+      - "traefik.http.services.spring-chat.loadbalancer.server.port=8080"
+      - "traefik.http.routers.spring-chat.middlewares=websocket-headers"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      app_net:
+
+  frontend-app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-frontend
+    ports:
+      - "4200:4200"
+    environment:
+      - NODE_ENV=production
+    networks:
+      app_net:
+
+volumes:
+  my-user-db:
+  my-device-db:
+  my-monitor-db:
+  traefik_logs:
+
+networks:
+  app_net:
+    external: true

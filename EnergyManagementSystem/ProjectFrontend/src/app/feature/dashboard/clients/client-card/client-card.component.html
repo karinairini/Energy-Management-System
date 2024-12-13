@@ -1,0 +1,31 @@
+<div class="card shadow-lg p-2 mt-2 mb-3">
+  <div class="d-flex flex-row p-2 align-items-center">
+    <i class="fa-solid fa-person user"></i>
+    <div class="d-flex flex-column me-auto">
+      <span class="fw-bold">Name: {{ client.name }}</span>
+      <span class="fw-bold mt-2">Email: {{ client.email }}</span>
+      <span class="fw-bold mt-2">Age: {{ client.age }}</span>
+    </div>
+    <button class="btn btn-green" (click)="addDevice()">
+      <i class="fa-solid fa-folder-plus icon-size"></i>
+    </button>
+    <button class="btn btn-yellow" (click)="updateClient()">
+      <i class="fa-solid fa-pen-to-square icon-size"></i>
+    </button>
+    <button class="btn btn-primary" (click)="toggleDeviceDetails()">
+      <i class="fa-solid fa-eye icon-size"></i>
+    </button>
+    <button class="btn btn-danger" (click)="deleteClient()">
+      <i class="fa-solid fa-user-slash icon-size"></i>
+    </button>
+  </div>
+  @if (showDetails) {
+    <div *ngFor="let device of devices; trackBy: trackByDeviceId">
+      <app-device-card
+        [device]="device"
+        (deleteDeviceEvent)="deleteDevice($event)"
+        [isAdmin]="true">
+      </app-device-card>
+    </div>
+  }
+</div>

@@ -1,0 +1,39 @@
+.fw-bold {
+  font-size: 27px;
+  font-family: "Open Sans", serif;
+  margin-left: 20px;
+}
+
+.card {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.user {
+  font-size: 70px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 80px;
+  margin-right: 15px;
+  margin-left: 10px;
+  padding: 0;
+}
+
+.icon-size {
+  font-size: 43px;
+}
+
+.btn-green {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-yellow {
+  background-color: #efd840;
+  color: white;
+}

@@ -1,0 +1,60 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow p-5 rounded">
+        <div class="card-body">
+          <h3 class="text-center">UPDATE DEVICE</h3>
+          <h5 class="mt-2 mb-5 text-center">Fill in the data below.</h5>
+          <form class="requires-validation" [formGroup]="updateForm" (ngSubmit)="updateDevice()">
+            <div class="row mb-4">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <input id="description"
+                         formControlName="description"
+                         class="form-control form-control-lg"
+                         placeholder="{{ deviceDescription }}"
+                         required
+                         type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input id="address"
+                         formControlName="address"
+                         class="form-control form-control-lg"
+                         placeholder="{{ deviceAddress }}"
+                         required
+                         type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="consumption">Consumption</label>
+                  <input id="consumption"
+                         formControlName="consumption"
+                         class="form-control form-control-lg"
+                         placeholder="{{ deviceConsumption }}"
+                         required
+                         type="text"
+                         inputmode="numeric">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-primary">Update device</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
